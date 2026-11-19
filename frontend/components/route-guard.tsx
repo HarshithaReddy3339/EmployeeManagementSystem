@@ -1,9 +1,28 @@
-
 "use client";
 
 import { useEffect, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "./auth-provider";
+
+function getRedirectTarget(role: string, pathname: string): string | null {
+  if (pathname === "/login") {
+    return role === "EMPLOYEE" ? "/profile" : "/";
+  }
+
+  if (role === "EMPLOYEE") {
+    return pathname === "/profile" ? null : "/profile";
+  }
+
+  if (pathname === "/profile") {
+    return "/";
+  }
+
+  if (role === "HR_MANAGER" && pathname.startsWith("/hr-managers")) {
+    return "/";
+  }
+
+  return null;
+}
 
 export default function RouteGuard({
   children,
@@ -14,19 +33,19 @@ export default function RouteGuard({
   const pathname = usePathname();
   const router = useRouter();
 
+  const redirectTarget = !loading
+    ? !user
+      ? pathname !== "/login"
+        ? "/login"
+        : null
+      : getRedirectTarget(user.role, pathname)
+    : null;
+
   useEffect(() => {
-    if (loading) return;
-
-    if (!user && pathname !== "/login") {
-      router.replace("/login");
+    if (redirectTarget) {
+      router.replace(redirectTarget);
     }
-
-    if (user && pathname === "/login") {
-      router.replace(
-        user.role === "EMPLOYEE" ? "/profile" : "/"
-      );
-    }
-  }, [user, loading, pathname, router]);
+  }, [redirectTarget, router]);
 
   if (loading) {
     return (
@@ -36,11 +55,7 @@ export default function RouteGuard({
     );
   }
 
-  if (!user && pathname !== "/login") {
-    return null;
-  }
-
-  if (user && pathname === "/login") {
+  if (redirectTarget) {
     return null;
   }
 

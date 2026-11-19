@@ -1,0 +1,5 @@
+{
+  "name": "EmployEase - Employee Management System",
+  "description": "Full-stack Employee Management System built with Next.js, React, TypeScript, NestJS, and Prisma.",
+  "requestFramePermissions": []
+}
