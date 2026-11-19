@@ -5,7 +5,7 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma.service.js';
 import { CreateHrManagerDto } from './dto/create-hr-manager.dto.js';
 import { UpdateHrManagerDto } from './dto/update-hr-manager.dto.js';

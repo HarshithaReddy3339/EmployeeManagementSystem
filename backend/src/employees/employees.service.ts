@@ -4,7 +4,7 @@ import {
   ConflictException,
   BadRequestException,
 } from '@nestjs/common';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma.service.js';
 import { CreateEmployeeDto } from './dto/create-employee.dto.js';
 import { UpdateEmployeeDto } from './dto/update-employee.dto.js';

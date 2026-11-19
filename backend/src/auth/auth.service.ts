@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID, createHash } from 'crypto';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma.service.js';
 import { LoginDto } from './dto/login.dto.js';
 
