@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   output: "standalone",
   experimental: {
     agentFeedback: true,
+    instantInsights: {
+      validationLevel: "manual-warning",
+    },
   },
   cacheComponents: true,
   partialPrefetching: true,
